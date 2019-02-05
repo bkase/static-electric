@@ -1,0 +1,3 @@
+(executable
+  (libraries core_kernel async_kernel tyxml)
+  (name hello))
