@@ -1,3 +1,4 @@
 (executable
-  (libraries core_kernel async_kernel tyxml)
-  (name hello))
+  (libraries core_kernel async_kernel tyxml static_electric)
+  (preprocess (pps ppx_jane))
+  (name example))

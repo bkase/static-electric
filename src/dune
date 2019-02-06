@@ -1,0 +1,6 @@
+(library
+ (name        static_electric)
+ (public_name static_electric)
+ (preprocess (pps ppx_jane))
+ (libraries core_kernel async_kernel tyxml))
+
