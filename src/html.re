@@ -9,23 +9,24 @@ module Hlist = {
 };
 include Hlist;
 
-let a = (~class_=?, ~style=?, ~href=?, ~children, ()) =>
-  a(
-    ~a=List.filter_opt([href |> Option.map(~f=a_href), class_, style]),
-    children,
-  );
+let style_of_class = class_ =>
+  Option.map(class_, ~f=Fn.compose(a_class, Style.render));
 
-let div = (~class_=?, ~style=?, ~children, ()) =>
-  div(
+let a = (~class_=?, ~href=?, ~children, ()) =>
+  a(
     ~a=
       List.filter_opt([
-        class_,
-        style |> Option.map(~f=Fn.compose(a_style, Style.render)),
+        href |> Option.map(~f=a_href),
+        style_of_class(class_),
       ]),
     children,
   );
 
-let body = (~children, ()) => body(children);
+let div = (~class_=?, ~children, ()) =>
+  div(~a=List.filter_opt([style_of_class(class_)]), children);
+
+let body = (~class_=?, ~children, ()) =>
+  body(~a=List.filter_opt([style_of_class(class_)]), children);
 
 let head = (~title, ~children, ()) => head(title_(txt(title)), children);
 let meta = (~charset=?, ~children as _: t(unit), ()) =>
@@ -38,3 +39,19 @@ let html =
   };
 
 let text = s => txt(s);
+
+/* headings
+ * TODO: It would be nice to share code here, but the types aren't trivial */
+
+let h1 = (~class_=?, ~children, ()) =>
+  h1(~a=List.filter_opt([style_of_class(class_)]), children);
+let h2 = (~class_=?, ~children, ()) =>
+  h2(~a=List.filter_opt([style_of_class(class_)]), children);
+let h3 = (~class_=?, ~children, ()) =>
+  h3(~a=List.filter_opt([style_of_class(class_)]), children);
+let h4 = (~class_=?, ~children, ()) =>
+  h4(~a=List.filter_opt([style_of_class(class_)]), children);
+let h5 = (~class_=?, ~children, ()) =>
+  h5(~a=List.filter_opt([style_of_class(class_)]), children);
+let h6 = (~class_=?, ~children, ()) =>
+  h6(~a=List.filter_opt([style_of_class(class_)]), children);

@@ -6,7 +6,7 @@ let test =
   <html>
     <head title="Example Title"> <meta charset="utf-8" /> </head>
     <body>
-      <div style={Style.return("bold")}>
+      <div class_={Style.return("bold")}>
         <a href="#test"> {text("Hello world")} </a>
       </div>
     </body>

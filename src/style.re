@@ -10,5 +10,4 @@ let render = t =>
       acc;
     }
   )
-  |> List.rev
-  |> String.concat(~sep=" ");
+  |> List.rev;
